@@ -1,0 +1,4 @@
+Należy pobrać ChromeDriver w wersji zgodnej z wersją Chrome zainstalowaną w systemie.
+https://chromedriver.chromium.org/downloads
+
+Należy rozpakować archiwum i zapisać ścieżkę do pliku chromedriver.exe do zmiennej środowiskowej PATH.
