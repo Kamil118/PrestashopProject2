@@ -5,8 +5,9 @@ from kategorie.ScrapowanieKategorii import scrapuj_kategorie
 from kategorie import Kategoria
 
 class ListaKategorii:
+
     wszystkie_kategorie = []
-    naglowek = ['id', 'nazwa', 'opis']
+    naglowek = ['id', 'aktywny', 'nazwa', 'opis', 'zdjecie']
 
     def dodaj_kategorie(self, kategoria):
         self.wszystkie_kategorie.append(kategoria)
@@ -16,7 +17,7 @@ class ListaKategorii:
         bs = BeautifulSoup(strona.content, 'html.parser')
         kategorie = bs.find('div', {"id": 'block_categories_toggle'})
         linki = kategorie.find('ul', {"class": 'category-sub-menu'})
-        iterator = 0
+        iterator = 1
 
         for link in linki.find_all('a'):
             scrapuj_kategorie(self, link['href'], iterator)

@@ -3,21 +3,9 @@ from requests import get
 from bs4 import BeautifulSoup
 from produkty.ScrapowanieProduktow import scrapujProdukt
 
-# self.id = id  # ID
-# self.nazwa = nazwa  # Name
-# self.zdjecie = zdjecie  # Image URL
-# self.stan = stan  # Condition
-# self.miasto = miasto
-# self.tryb = tryb  # Description
-# self.data = data  # Product availability date
-# self.pakiet = pakiet
-# self.platnosc = platnosc
-# self.opis = opis  # Description
-# self.kategorie = []  # Categories
-
 class ListaProduktow:
     wszystkie_produkty = []
-    naglowek = ['id', 'nazwa', 'zdjecie', 'stan', 'miasto', 'tryb', 'data', 'pakiet', 'platnosc', 'opis', 'kategorie']
+    naglowek = ['id', 'aktywny', 'nazwa', 'kategorie', 'cena', 'w sprzedazy', 'ilosc', 'dostepne_do_zamowienia', 'zdjecie', 'opis', 'stan', 'miasto', 'tryb', 'data', 'pakiet', 'platnosc', 'zalezny_od_stanu']
 
     def dodaj_produkt(self, produkt):
         self.wszystkie_produkty.append(produkt)
@@ -28,7 +16,7 @@ class ListaProduktow:
 
         paginacje = bs.find('nav', {'class': 'pagination'})
         paginacje = paginacje.find_all('a', {'rel': 'nofollow'})
-        iterator = 0
+        iterator = 1
 
         for x in paginacje:
             zmienna = get(x['href'])
@@ -48,4 +36,3 @@ class ListaProduktow:
             writer.writerow(self.naglowek)
             for x in self.wszystkie_produkty:
                 writer.writerow(x.konwersja_na_liste())
-
