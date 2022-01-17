@@ -79,6 +79,7 @@ def checkout():
     # delivery option
     wait.until(presence_of_element_located((By.ID, "delivery_option_2")))
     driver.find_element(By.ID, "delivery_option_2").click()
+    wait.until(element_to_be_clickable((By.NAME, "confirmDeliveryOption")))
     driver.find_element(By.NAME, "confirmDeliveryOption").click()
 
     # payment
