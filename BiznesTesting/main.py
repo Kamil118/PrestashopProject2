@@ -58,7 +58,7 @@ def checkout():
     driver.find_element(By.ID, "field-id_gender-1").click()
     driver.find_element(By.ID, "field-firstname").send_keys("Jeff")
     driver.find_element(By.ID, "field-lastname").send_keys("Bezos")
-    driver.find_element(By.ID, "field-email").send_keys(f"jeff{randint(0, 2077)}@yoggm.com")  # 1secmail.org
+    driver.find_element(By.ID, "field-email").send_keys(f"jeff{randint(2077, 19640112)}@yoggm.com")  # 1secmail.org
     driver.find_element(By.ID, "field-password").send_keys("Come0nJeffrey")
     driver.find_element(By.ID, "field-birthday").send_keys("1964-01-12")
     driver.find_element(By.NAME, "optin").click()
