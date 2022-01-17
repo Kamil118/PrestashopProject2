@@ -2,11 +2,10 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support.expected_conditions import presence_of_element_located
-from time import sleep
+from selenium.webdriver.support.expected_conditions import presence_of_element_located, element_to_be_clickable
 from random import randint
 
-url = "https://pppkamilsuchecki2.ddns.net:8080/"
+url = "https://localhost:8080/"
 
 driver = webdriver.Chrome()
 wait = WebDriverWait(driver, 10)
@@ -39,7 +38,7 @@ def add_to_the_basket(quantity):
         quantity_input.send_keys(Keys.ARROW_UP)
     driver.find_element(By.CLASS_NAME, "add-to-cart").click()
     wait.until(presence_of_element_located((By.CSS_SELECTOR, ".close i")))
-    sleep(0.3)  # to prevent selenium.common.exceptions.ElementNotInteractableException: Message: element not interactable
+    wait.until(element_to_be_clickable((By.CSS_SELECTOR, ".close i")))
     driver.find_element(By.CSS_SELECTOR, ".close i").click()
 
 
@@ -70,7 +69,7 @@ def checkout():
 
     # continue the checkout
     # provide the address for delivery
-
+    wait.until(presence_of_element_located((By.ID, "field-address1")))
     driver.find_element(By.ID, "field-address1").send_keys("Do Studzienki 39")
     driver.find_element(By.ID, "field-postcode").send_keys("80-227")
     driver.find_element(By.ID, "field-city").send_keys("Gdańsk")
@@ -78,16 +77,19 @@ def checkout():
     driver.find_element(By.CLASS_NAME, "form-footer").find_element(By.TAG_NAME, "button").click()  # continue
 
     # delivery option
+    wait.until(presence_of_element_located((By.ID, "delivery_option_2")))
     driver.find_element(By.ID, "delivery_option_2").click()
     driver.find_element(By.NAME, "confirmDeliveryOption").click()
 
     # payment
+    wait.until(presence_of_element_located((By.ID, "payment-option-2")))
     driver.find_element(By.ID, "payment-option-2").click()
     driver.find_element(By.ID, "conditions_to_approve[terms-and-conditions]").click()
     driver.find_element(By.ID, "payment-confirmation").find_element(By.TAG_NAME, "button").click()
 
 
 def order_details():
+    wait.until(presence_of_element_located((By.CLASS_NAME, "account")))
     driver.find_element(By.CLASS_NAME, "account").click()
     driver.find_element(By.ID, "history-link").click()
     driver.find_element(By.CLASS_NAME, "order-actions").find_elements(By.TAG_NAME, "a")[0].click()
@@ -108,4 +110,3 @@ for i in range(3):
 show_basket_and_remove_random_product()
 checkout()
 order_details()
-
